@@ -4,10 +4,11 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1"
   },
   "scripts": {
-    "server": "nodemon --exec ts-node index.ts",
+    "dev": "nodemon --exec ts-node index.ts",
     "static": "ts-node index.ts",
     "build": "tsc"
   },

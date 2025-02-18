@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express'
+import './src/Model'
 
 const app = express()
 const port = 9000
