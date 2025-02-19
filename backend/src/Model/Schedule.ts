@@ -26,4 +26,4 @@ const scheduleSchema = new mongoose.Schema(
 
 const Schedule = mongoose.model('schedule', scheduleSchema)
 
-export default Schedule
+export { Schedule }

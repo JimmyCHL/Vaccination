@@ -18,4 +18,4 @@ const hospitalSchema = new mongoose.Schema(
 
 const Hospital = mongoose.model('hospital', hospitalSchema)
 
-export default Hospital
+export { Hospital }

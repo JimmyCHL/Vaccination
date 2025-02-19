@@ -20,9 +20,9 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true },
     password: { type: String, required: true },
     age: { type: Number, required: true },
-    profession: { type: String, required: true },
-    contact: { type: String, required: true },
-    address: { type: String, required: true },
+    profession: { type: String },
+    contact: { type: String },
+    address: { type: String },
     gender: { type: String, enum: Object.values(GenderEnum), required: true },
     medicalCondition: { type: [String], default: [] }, // e.g., "Diabetes, Asthma"
     medicalCertificate: { type: String }, // Link to a document or text data
@@ -33,4 +33,4 @@ const userSchema = new mongoose.Schema(
 
 const User = mongoose.model('user', userSchema)
 
-export default User
+export { User }

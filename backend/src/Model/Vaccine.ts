@@ -16,4 +16,4 @@ const vaccineSchema = new mongoose.Schema(
 
 const Vaccine = mongoose.model('vaccine', vaccineSchema)
 
-export default Vaccine
+export { Vaccine }
