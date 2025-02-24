@@ -13,7 +13,7 @@ const app = express()
 // Config
 app.use(
   cors({
-    origin: 'http://localhost:5000', // Replace with your frontend URL
+    origin: 'http://localhost:3000', // Replace with your frontend URL
   })
 )
 
@@ -24,6 +24,8 @@ app.use(express.urlencoded({ extended: true }))
 // jwt
 // Middleware to protect routes
 const authenticateJWT = (req: Request, res: Response, next: NextFunction): void | Promise<void> => {
+  if (req.path === '/api/authenticate') return next()
+
   const token = req.header('Authorization')?.split(' ')[1]
 
   if (!token) res.status(401).json({ message: 'Access denied' })

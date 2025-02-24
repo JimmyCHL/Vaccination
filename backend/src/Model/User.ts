@@ -19,11 +19,11 @@ const userSchema = new mongoose.Schema(
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    age: { type: Number, required: true },
+    age: { type: Number, default: 20 },
     profession: { type: String },
     contact: { type: String },
     address: { type: String },
-    gender: { type: String, enum: Object.values(GenderEnum), required: true },
+    gender: { type: String, enum: Object.values(GenderEnum), default: GenderEnum.Male },
     medicalCondition: { type: [String], default: [] }, // e.g., "Diabetes, Asthma"
     medicalCertificate: { type: String }, // Link to a document or text data
     role: { type: String, enum: Object.values(RoleEnum), default: RoleEnum.User },
