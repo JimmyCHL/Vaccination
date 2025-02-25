@@ -1,8 +1,10 @@
 import { Suspense } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import { Approver } from './admin/Approval/Approver'
 import { PatientList } from './admin/PatientList/PatientList'
 import { AddVaccine } from './admin/vaccine/AddVaccine'
+import { useAuthenticated } from './hooks/useAuthenticated'
 import { PersonalScheduleList } from './patient/ScheduleList/PersonalScheduleList'
 import { RegisterVaccine } from './patient/Vaccine/RegisterVaccine'
 import { Authenticate } from './share/Authentication/Authenticate'
@@ -14,15 +16,18 @@ import { PersonalDetail } from './share/PersonalDetail/PersonalDetail'
 import { VaccineList } from './share/Vaccine/VaccineList'
 
 function App() {
+  const { isAuthenticated } = useAuthenticated()
+
   return (
     <div className="App">
+      <ToastContainer />
       <Router>
         <Header />
         <Suspense fallback={<div>Loading...</div>}>
-          <div style={{ padding: '10px' }}>
+          <div style={{ padding: '0 10px' }}>
             <Routes>
               <Route path="/authenticate" element={<Authenticate />} />
-              <Route path="/personalDetail" element={<PersonalDetail />} />
+              {isAuthenticated && <Route path="/personalDetail" element={<PersonalDetail />} />}
               {/* Admin */}
               <Route path="/admin" element={<Home />} />
               <Route path="/admin/addVaccine" element={<AddVaccine />} />

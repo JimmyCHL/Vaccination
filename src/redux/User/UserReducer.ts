@@ -7,6 +7,7 @@ interface UserState {
 
 const initialState = {
   user: {
+    _id: '',
     email: '',
     password: '',
     firstName: '',

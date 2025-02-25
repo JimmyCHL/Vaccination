@@ -34,7 +34,6 @@ export const Authenticate = () => {
   }
 
   const handleSubmit = () => {
-    console.log({ firstName, lastName, email, password })
     dispatch(
       saveUser({ firstName, lastName, email, password }, () => {
         navigate('/personalDetail')
@@ -46,12 +45,12 @@ export const Authenticate = () => {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       <div style={{ display: 'flex', marginBottom: '10px', width: '450px', gap: '10px' }}>
         <FormControl variant="filled" required sx={{ flex: 1 }}>
-          <InputLabel htmlFor="lastName">Last Name</InputLabel>
-          <FilledInput id="lastName" value={lastName} onChange={handleChange} />
-        </FormControl>
-        <FormControl variant="filled" required sx={{ flex: 1 }}>
           <InputLabel htmlFor="firstName">first Name</InputLabel>
           <FilledInput id="firstName" value={firstName} onChange={handleChange} />
+        </FormControl>
+        <FormControl variant="filled" required sx={{ flex: 1 }}>
+          <InputLabel htmlFor="lastName">Last Name</InputLabel>
+          <FilledInput id="lastName" value={lastName} onChange={handleChange} />
         </FormControl>
       </div>
       <FormControl variant="filled" sx={{ marginBottom: '10px', width: '450px' }}>
