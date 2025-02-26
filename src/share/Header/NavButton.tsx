@@ -1,10 +1,11 @@
-import { Button, Typography } from '@mui/material'
+import { Button, Typography, useMediaQuery } from '@mui/material'
 import { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 export const NavButton = ({ to, children }: { to: string; children: ReactNode }) => {
   const location = useLocation()
-
+  const isSmall = useMediaQuery('(max-width: 900px)')
+  console.log(isSmall)
   // Check if the current path matches the target 'to' path
   const isActive = location.pathname === to
 
@@ -17,12 +18,12 @@ export const NavButton = ({ to, children }: { to: string; children: ReactNode })
         backgroundColor: isActive ? 'black' : 'lightgray', // Active style
         color: 'white',
         '&:hover': {
-          backgroundColor: 'lightgray',
+          backgroundColor: 'lightskyblue',
         },
       }}
     >
       <Typography
-        sx={{ fontWeight: isActive ? 'bold' : 'normal' }} // Active style
+        sx={{ fontWeight: isActive ? 'bold' : 'normal', fontSize: isSmall ? '12px' : '16px' }} // Active style
       >
         {children}
       </Typography>

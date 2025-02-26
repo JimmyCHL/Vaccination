@@ -29,19 +29,27 @@ function App() {
               <Route path="/authenticate" element={<Authenticate />} />
               {isAuthenticated && <Route path="/personalDetail" element={<PersonalDetail />} />}
               {/* Admin */}
-              <Route path="/admin" element={<Home />} />
-              <Route path="/admin/addVaccine" element={<AddVaccine />} />
-              <Route path="/admin/vaccineList" element={<VaccineList />} />
-              <Route path="/admin/AddHospital" element={<HospitalList />} />
-              <Route path="/admin/hospitalList" element={<HospitalList />} />
-              <Route path="/admin/approver" element={<Approver />} />
-              <Route path="/admin/patientList" element={<PatientList />} />
+              {isAuthenticated && (
+                <>
+                  <Route path="/admin" element={<Home />} />
+                  <Route path="/admin/addVaccine" element={<AddVaccine />} />
+                  <Route path="/admin/vaccineList" element={<VaccineList />} />
+                  <Route path="/admin/AddHospital" element={<HospitalList />} />
+                  <Route path="/admin/hospitalList" element={<HospitalList />} />
+                  <Route path="/admin/approver" element={<Approver />} />
+                  <Route path="/admin/patientList" element={<PatientList />} />
+                </>
+              )}
               {/* Patient */}
               <Route path="/" element={<Home />} />
               <Route path="/vaccineList" element={<VaccineList />} />
               <Route path="/hospitalList" element={<HospitalList />} />
-              <Route path="/ownSchedules" element={<PersonalScheduleList />} />
-              <Route path="/makeAppointment" element={<RegisterVaccine />} />
+              {isAuthenticated && (
+                <>
+                  <Route path="/ownSchedules" element={<PersonalScheduleList />} />
+                  <Route path="/makeAppointment" element={<RegisterVaccine />} />
+                </>
+              )}
               {/* Not Found */}
               <Route path="*" element={<NotFound />} />
             </Routes>
