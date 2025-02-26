@@ -13,11 +13,14 @@ import {
   Typography,
 } from '@mui/material'
 import { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { AppDispatch } from '../../redux/store'
+import { updateUser } from '../../redux/User/UserActions'
 import { userSelector } from '../../redux/User/UserSelector'
 
 export const PersonalDetail = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const user = useSelector(userSelector)
   const [data, setData] = useState(user)
 
@@ -36,17 +39,20 @@ export const PersonalDetail = () => {
   }
 
   const handleSave = useCallback(() => {
-    console.log(data)
-    toast('Details saved!', {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }, [data])
+    dispatch(
+      updateUser(data, () => {
+        toast('Details saved!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      })
+    )
+  }, [data, dispatch])
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '450px' }}>

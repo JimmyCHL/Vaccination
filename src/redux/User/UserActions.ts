@@ -1,6 +1,8 @@
 import { Dispatch } from 'react'
 import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
+import { unmarshalFields } from '../helper'
+import { User } from './type'
 
 export type AuthenticateData = {
   firstName: string
@@ -48,6 +50,20 @@ export const saveUser = (userObj: AuthenticateData, callback: () => void) => {
 
         dispatch(AddUserToStore(user))
         callback()
+      })
+      .catch((error) => console.log(error))
+  }
+}
+
+export const updateUser = (userObj: User, callback?: () => void) => {
+  return (dispatch: Dispatch<any>) => {
+    axiosInstance
+      .put('/user/api/updateUser', userObj)
+      .then((collection) => {
+        const user = collection.data
+
+        dispatch(AddUserToStore(unmarshalFields(user)))
+        callback?.()
       })
       .catch((error) => console.log(error))
   }

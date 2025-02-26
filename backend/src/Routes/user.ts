@@ -42,4 +42,17 @@ userRoute.post('/api/authenticate', (req, res) => {
   })
 })
 
+userRoute.put('/api/updateUser', (req, res) => {
+  const { _id, ...rest } = req.body
+
+  User.findByIdAndUpdate(_id, rest, { new: true })
+    .then((user) => {
+      res.json(user)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.json('error while updating user')
+    })
+})
+
 export { userRoute }
