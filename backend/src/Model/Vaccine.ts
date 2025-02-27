@@ -10,6 +10,7 @@ const vaccineSchema = new mongoose.Schema(
     dosesRequired: { type: Number, required: true },
     strainsCovered: { type: [String], default: [] }, // e.g., "COVID-19, Delta, Omicron"
     quantity: { type: Number, required: true },
+    imageUrl: { type: String },
   },
   { timestamps: true }
 )

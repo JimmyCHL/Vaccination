@@ -4,18 +4,20 @@ import { persistReducer, persistStore } from 'redux-persist'
 import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import { userReducer } from './User/UserReducer'
+import { vaccineReducer } from './Vaccine/VaccineReducer'
 
 // Configuration for redux-persist
 const persistConfig = {
   key: 'root', // key to store in localStorage (or any storage)
   storage, // use localStorage by default
-  whitelist: ['userReducer'], // optional: only persist specific reducers
+  whitelist: ['userReducer', 'vaccineReducer'], // optional: only persist specific reducers
   blacklist: [], // optional: prevent persisting specific reducers
 }
 
 //we can add multiple reducers and combine them together to have one root reducer and add it to store
 let rootReducer = combineReducers({
   userReducer,
+  vaccineReducer,
 })
 
 // Persisted reducer that wraps the rootReducer
