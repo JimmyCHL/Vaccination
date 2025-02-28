@@ -1,6 +1,7 @@
 export type Vaccine = {
   _id: string
   name: string
+  description: string
   type: string
   price: number
   sideEffects: string[]

@@ -5,6 +5,7 @@ import { Approver } from './admin/Approval/Approver'
 import { PatientList } from './admin/PatientList/PatientList'
 import { AddVaccine } from './admin/vaccine/AddVaccine'
 import { useAuthenticated } from './hooks/useAuthenticated'
+import { useInitialization } from './hooks/useInitialization'
 import { PersonalScheduleList } from './patient/ScheduleList/PersonalScheduleList'
 import { RegisterVaccine } from './patient/Vaccine/RegisterVaccine'
 import { Authenticate } from './share/Authentication/Authenticate'
@@ -17,6 +18,8 @@ import { VaccineList } from './share/Vaccine/VaccineList'
 
 function App() {
   const { isAuthenticated } = useAuthenticated()
+  //Initialize the app global data
+  useInitialization()
 
   return (
     <div className="App">

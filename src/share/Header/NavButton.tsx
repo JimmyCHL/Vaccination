@@ -5,7 +5,6 @@ import { Link, useLocation } from 'react-router-dom'
 export const NavButton = ({ to, children }: { to: string; children: ReactNode }) => {
   const location = useLocation()
   const isSmall = useMediaQuery('(max-width: 900px)')
-  console.log(isSmall)
   // Check if the current path matches the target 'to' path
   const isActive = location.pathname === to
 

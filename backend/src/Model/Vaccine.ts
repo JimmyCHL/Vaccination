@@ -3,6 +3,7 @@ import mongoose from './connection'
 const vaccineSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
+    description: { type: String, required: true },
     type: { type: String, required: true }, // e.g., "mRNA", "Vector-based"
     price: { type: Number, required: true },
     sideEffects: { type: [String], default: [] }, // e.g., "Headache, Fever"

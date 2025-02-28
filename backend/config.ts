@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: true }))
 // Middleware to protect routes
 const authenticateJWT = (req: Request, res: Response, next: NextFunction): void | Promise<void> => {
   if (req.path === '/api/authenticate') return next()
+  if (req.path === '/api/fetchVaccines') return next()
 
   const token = req.header('Authorization')?.split(' ')[1]
 

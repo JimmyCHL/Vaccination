@@ -26,6 +26,7 @@ export const AddVaccine = ({ vaccine }: Props) => {
   const [data, setData] = useState<Omit<Vaccine, '_id'> & { _id?: string }>(
     vaccine ?? {
       name: '',
+      description: '',
       type: '',
       price: 0,
       sideEffects: [],
@@ -126,6 +127,11 @@ export const AddVaccine = ({ vaccine }: Props) => {
       <FormControl variant="filled" required sx={{ flex: 1 }}>
         <InputLabel htmlFor="quantity">Quantity</InputLabel>
         <FilledInput id="quantity" type="number" value={data.quantity} onChange={handleChange} />
+      </FormControl>
+      {/* Description */}
+      <FormControl variant="filled" required sx={{ flex: 1 }}>
+        <InputLabel htmlFor="description">Description</InputLabel>
+        <FilledInput id="description" multiline value={data.description} onChange={handleChange} />
       </FormControl>
       {/* Image URL */}
       <FormControl variant="filled" required sx={{ flex: 1 }}>
