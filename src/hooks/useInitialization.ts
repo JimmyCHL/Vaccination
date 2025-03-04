@@ -8,7 +8,6 @@ export const useInitialization = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    console.log('hi')
     //fetch vaccination
     dispatch(fetchVaccines())
     // eslint-disable-next-line react-hooks/exhaustive-deps

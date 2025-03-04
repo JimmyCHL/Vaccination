@@ -6,15 +6,23 @@ import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
+import { useIsAdmin } from '../../../hooks/useIsAdmin'
 type Props = {
   vaccine: Vaccine
+  handleEditVaccine?: (vaccine?: Vaccine) => void
 }
 
-export const VaccineCard = ({ vaccine }: Props) => {
+export const VaccineCard = ({ vaccine, handleEditVaccine }: Props) => {
+  const { isAdmin } = useIsAdmin()
+
   return (
     <Box sx={{ display: 'flex', gap: '10px', width: '100%' }}>
-      <Paper elevation={10} sx={{ margin: '10px', padding: '10px', width: '100%' }}>
-        <Card sx={{ maxWidth: 345, height: '100%' }}>
+      <Paper
+        elevation={10}
+        sx={{ margin: '10px', padding: '10px', width: '100%' }}
+        onClick={() => (isAdmin ? handleEditVaccine?.(vaccine) : null)}
+      >
+        <Card sx={{ maxWidth: 345, height: '100%', cursor: isAdmin ? 'pointer' : 'none' }}>
           <CardActionArea>
             <CardMedia component="img" height="240" image={vaccine.imageUrl} alt="green iguana" />
             <CardContent>

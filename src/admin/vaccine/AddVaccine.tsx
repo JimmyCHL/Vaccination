@@ -19,9 +19,10 @@ import { saveVaccine } from '../../redux/Vaccine/VaccineActions'
 
 type Props = {
   vaccine?: Vaccine
+  handleEditVaccine?: (vaccine?: Vaccine) => void
 }
 
-export const AddVaccine = ({ vaccine }: Props) => {
+export const AddVaccine = ({ vaccine, handleEditVaccine }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const [data, setData] = useState<Omit<Vaccine, '_id'> & { _id?: string }>(
     vaccine ?? {
@@ -89,14 +90,26 @@ export const AddVaccine = ({ vaccine }: Props) => {
           draggable: true,
           progress: undefined,
         })
+
+        if (data._id) {
+          handleEditVaccine?.()
+        }
       })
     )
-  }, [data, dispatch])
+  }, [data, dispatch, handleEditVaccine])
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '450px' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '450px', paddingBottom: '20px' }}>
       <h1 style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <VaccinesIcon fontSize="large" /> {vaccine ? 'Update a Vaccine' : 'Add a Vaccine'}
+        <VaccinesIcon fontSize="large" /> {vaccine ? 'Update a Vaccine' : 'Add a Vaccine'}{' '}
+        {vaccine?.name && (
+          <Button
+            sx={{ color: 'white', backgroundColor: 'black', fontWeight: 600 }}
+            onClick={() => handleEditVaccine?.()}
+          >
+            Back
+          </Button>
+        )}
       </h1>
       {/* Vaccine Name */}
       <FormControl variant="filled" required sx={{ flex: 1 }}>
