@@ -23,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="background" />
       <ToastContainer />
       <Router>
         <Header />
@@ -34,7 +35,6 @@ function App() {
               {/* Admin */}
               {isAuthenticated && (
                 <>
-                  <Route path="/admin" element={<Home />} />
                   <Route path="/admin/addVaccine" element={<AddVaccine />} />
                   <Route path="/admin/vaccineList" element={<VaccineList />} />
                   <Route path="/admin/AddHospital" element={<HospitalList />} />

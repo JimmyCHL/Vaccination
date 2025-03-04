@@ -48,7 +48,6 @@ export const Header = () => {
               {!isLarge ? (
                 <>
                   <AdbIcon sx={{ marginRight: '5px' }} />
-                  <NavButton to="/admin" children="Home" />
                   <NavButton to="/admin/addVaccine" children="Add Vaccine" />
                   <NavButton to="/admin/vaccineList" children="Vaccine List" />
                   <NavButton to="/admin/AddHospital" children="Add Hospital" />
@@ -62,9 +61,6 @@ export const Header = () => {
                     <AdbIcon />
                   </Fab>
                   <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>
-                    <MenuItem onClick={handleClose}>
-                      <NavButton to="/admin" children="Home" />
-                    </MenuItem>
                     <MenuItem onClick={handleClose}>
                       <NavButton to="/admin/addVaccine" children="Add Vaccine" />
                     </MenuItem>

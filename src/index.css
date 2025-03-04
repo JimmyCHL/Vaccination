@@ -4,8 +4,25 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: 'relative';
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.background {
+  background-image: url('https://api.hub.jhu.edu/factory/sites/default/files/styles/soft_crop_1300/public/red_covid_map.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -99;
+  opacity: 0.4;
 }
