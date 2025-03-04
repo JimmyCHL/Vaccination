@@ -22,7 +22,7 @@ function App() {
   useInitialization()
 
   return (
-    <div className="App">
+    <div className="App" style={{ position: 'relative' }}>
       <div className="background" />
       <ToastContainer />
       <Router>

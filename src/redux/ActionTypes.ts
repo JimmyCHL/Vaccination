@@ -7,3 +7,7 @@ export const SIGN_OUT_USER = 'STORE.SIGNOUTUSER'
 // Vaccine actions
 export const ADD_VACCINE_TO_STORE = 'STORE.ADDVACCINE'
 export const SET_VACCINES = 'STORE.SETVACCINES'
+
+// Hospital actions
+export const ADD_HOSPITAL_TO_STORE = 'STORE.ADDHOSPITAL'
+export const SET_HOSPITALS = 'STORE.SETHOSPITALS'

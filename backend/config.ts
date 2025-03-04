@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 const authenticateJWT = (req: Request, res: Response, next: NextFunction): void | Promise<void> => {
   if (req.path === '/api/authenticate') return next()
   if (req.path === '/api/fetchVaccines') return next()
+  if (req.path === '/api/fetchHospitals') return next()
 
   const token = req.header('Authorization')?.split(' ')[1]
 
