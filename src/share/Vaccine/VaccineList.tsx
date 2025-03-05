@@ -30,7 +30,7 @@ export const VaccineList = () => {
             {vaccines.map((vaccine, i) => (
               <Fade
                 key={vaccine._id}
-                delay={i * 80} // Wait 200ms before starting
+                delay={i * 60} // Wait 200ms before starting
                 duration={600} // Animation lasts 1 second
                 triggerOnce // Only animate once
                 fraction={0.5} // Start animation when element is 50% visible

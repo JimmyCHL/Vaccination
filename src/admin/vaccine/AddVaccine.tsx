@@ -22,6 +22,19 @@ type Props = {
   handleEditVaccine?: (vaccine?: Vaccine) => void
 }
 
+const initialData = {
+  name: '',
+  description: '',
+  type: '',
+  price: 0,
+  sideEffects: [],
+  origin: '',
+  dosesRequired: 0,
+  strainsCovered: [],
+  quantity: 0,
+  imageUrl: '',
+}
+
 export const AddVaccine = ({ vaccine, handleEditVaccine }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const [data, setData] = useState<Omit<Vaccine, '_id'> & { _id?: string }>(
@@ -93,6 +106,8 @@ export const AddVaccine = ({ vaccine, handleEditVaccine }: Props) => {
 
         if (data._id) {
           handleEditVaccine?.()
+        } else {
+          setData(initialData)
         }
       })
     )

@@ -1,5 +1,5 @@
 // Create a enum
-enum HospitalEnum {
+export enum HospitalEnum {
   Govt = 'Govt',
   Private = 'Private',
 }
@@ -10,5 +10,6 @@ export type Hospital = {
   imageUrl: string
   address: string
   type: HospitalEnum
+  description: string
   charges: number
 }

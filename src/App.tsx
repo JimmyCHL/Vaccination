@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { Approver } from './admin/Approval/Approver'
+import { AddHospital } from './admin/Hospital/AddHospital'
 import { PatientList } from './admin/PatientList/PatientList'
 import { AddVaccine } from './admin/vaccine/AddVaccine'
 import { useAuthenticated } from './hooks/useAuthenticated'
@@ -22,7 +23,7 @@ function App() {
   useInitialization()
 
   return (
-    <div className="App" style={{ position: 'relative' }}>
+    <div className="App" style={{ position: 'relative', minHeight: '100vh' }}>
       <div className="background" />
       <ToastContainer />
       <Router>
@@ -37,7 +38,7 @@ function App() {
                 <>
                   <Route path="/admin/addVaccine" element={<AddVaccine />} />
                   <Route path="/admin/vaccineList" element={<VaccineList />} />
-                  <Route path="/admin/AddHospital" element={<HospitalList />} />
+                  <Route path="/admin/AddHospital" element={<AddHospital />} />
                   <Route path="/admin/hospitalList" element={<HospitalList />} />
                   <Route path="/admin/approver" element={<Approver />} />
                   <Route path="/admin/patientList" element={<PatientList />} />
