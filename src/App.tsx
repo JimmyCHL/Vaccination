@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { Approver } from './admin/Approval/Approver'
+import { Approver } from './admin/Approver/Approver'
 import { AddHospital } from './admin/Hospital/AddHospital'
 import { PatientList } from './admin/PatientList/PatientList'
 import { AddVaccine } from './admin/vaccine/AddVaccine'

@@ -1,8 +1,9 @@
-import { Alert, Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
+import { Alert, Box, Button, Card, CardActions, CardContent, CardMedia, Typography, useMediaQuery } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
   const navigation = useNavigate()
+  const isSmall = useMediaQuery('(max-width: 900px)')
 
   return (
     <Box sx={{ padding: '20px' }}>
@@ -15,7 +16,15 @@ export const Home = () => {
         Learn more about the importance of COVID-19 vaccination and how it helps to fight the pandemic.
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '20px',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          flexDirection: isSmall ? 'column' : 'row',
+        }}
+      >
         <Box sx={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center', flex: 1 }}>
           <Card>
             <CardMedia

@@ -8,6 +8,7 @@ enum PaidStatusEnum {
 
 // schedule enum
 enum ScheduleStatusEnum {
+  Approved = 'Approved',
   Scheduled = 'Scheduled',
   Cancelled = 'Cancelled',
 }
@@ -20,6 +21,11 @@ const scheduleSchema = new mongoose.Schema(
     scheduledDate: { type: Date, required: true },
     status: { type: String, enum: Object.values(ScheduleStatusEnum), default: ScheduleStatusEnum.Scheduled },
     paidStatus: { type: String, enum: Object.values(PaidStatusEnum), default: PaidStatusEnum.Paid },
+    details: {
+      curPrice: { type: Number, required: true },
+      doses: { type: Number, required: true },
+      totalAmount: { type: Number, required: true },
+    },
   },
   { timestamps: true }
 )

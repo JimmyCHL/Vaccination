@@ -2,6 +2,7 @@ import { Dispatch } from 'react'
 import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 import { unmarshalFields } from '../helper'
+import { SET_CURRENT_SCHEDULE } from '../Schedule/ScheduleActions'
 import { User } from './type'
 
 export type AuthenticateData = {
@@ -24,6 +25,9 @@ export const SignOutUser = () => {
     dispatch({
       type: actionTypes.SIGN_OUT_USER,
     })
+
+    //clear current edited schedule while signout
+    dispatch(SET_CURRENT_SCHEDULE(undefined))
 
     //Remove token while signout
     localStorage.removeItem('token')

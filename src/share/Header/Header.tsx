@@ -98,8 +98,8 @@ export const Header = () => {
                   <NavButton to="/hospitalList" children="Hospital List" />
                   {isAuthenticated && (
                     <>
-                      <NavButton to="/ownSchedules" children="Own Schedules" />
                       <NavButton to="/makeAppointment" children="Make Appointment" />
+                      <NavButton to="/ownSchedules" children="Own Schedules" />
                     </>
                   )}
                 </>
@@ -121,10 +121,10 @@ export const Header = () => {
                     {isAuthenticated && (
                       <>
                         <MenuItem onClick={handleClose}>
-                          <NavButton to="/ownSchedules" children="Own Schedules" />
+                          <NavButton to="/makeAppointment" children="Make Appointment" />
                         </MenuItem>
                         <MenuItem onClick={handleClose}>
-                          <NavButton to="/makeAppointment" children="Make Appointment" />
+                          <NavButton to="/ownSchedules" children="Own Schedules" />
                         </MenuItem>
                       </>
                     )}
