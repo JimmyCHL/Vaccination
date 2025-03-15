@@ -20,7 +20,9 @@ export type User = {
   age: number
   profession?: string
   contact?: string
-  address?: string
+  street?: string
+  state?: string
+  zip?: string
   gender: GenderEnum
   medicalCondition: string[]
   medicalCertificate?: string

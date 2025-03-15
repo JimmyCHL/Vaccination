@@ -28,6 +28,12 @@ export const marshalDateTime = <T extends Object>(data: T): T => {
       // @ts-ignore
       data[key] = data[key].toISO() ?? DateTime.now().toISO()
     }
+
+    // @ts-ignore
+    if (Array.isArray(data[key]) && data[key][0] instanceof DateTime) {
+      // @ts-ignore
+      data[key] = data[key].map((date) => date.toISO())
+    }
   })
   return data
 }
@@ -38,6 +44,12 @@ export const unmarshalDateTime = <T extends Object>(data: T): T => {
     if (typeof data[key] === 'string' && DateTime.fromISO(data[key]).isValid) {
       // @ts-ignore
       data[key] = DateTime.fromISO(data[key])
+    }
+
+    // @ts-ignore
+    if (Array.isArray(data[key]) && typeof data[key][0] === 'string' && DateTime.fromISO(data[key][0]).isValid) {
+      // @ts-ignore
+      data[key] = data[key].map((date: string) => DateTime.fromISO(date))
     }
   })
   return data

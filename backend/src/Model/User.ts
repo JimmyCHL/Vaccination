@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema(
     age: { type: Number, default: 20 },
     profession: { type: String },
     contact: { type: String },
-    address: { type: String },
+    street: { type: String },
+    state: { type: String },
+    zip: { type: String },
     gender: { type: String, enum: Object.values(GenderEnum), default: GenderEnum.Male },
     medicalCondition: { type: [String], default: [] }, // e.g., "Diabetes, Asthma"
     medicalCertificate: { type: String }, // Link to a document or text data

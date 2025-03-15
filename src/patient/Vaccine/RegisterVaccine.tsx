@@ -28,8 +28,8 @@ export const RegisterVaccine = () => {
   useEffect(() => {
     if (!currentSchedule) return
 
-    const { vaccine, hospital, scheduledDate } = currentSchedule
-    if (vaccine && hospital && scheduledDate) {
+    const { vaccine, hospital, dates } = currentSchedule
+    if (vaccine && hospital && dates?.[0]) {
       setActiveStep(3)
     } else if (vaccine && hospital) {
       setActiveStep(2)
@@ -61,7 +61,7 @@ export const RegisterVaccine = () => {
   const canGoNext = useMemo<boolean>(() => {
     if (activeStep === 0) return !!currentSchedule?.vaccine
     if (activeStep === 1) return !!currentSchedule?.hospital
-    if (activeStep === 2) return !!currentSchedule?.scheduledDate
+    if (activeStep === 2) return !!currentSchedule?.dates?.[0]
     return false
   }, [activeStep, currentSchedule])
 

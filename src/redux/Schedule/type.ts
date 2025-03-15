@@ -21,7 +21,7 @@ export type Schedule = {
   user: User
   vaccine: Vaccine
   hospital: Hospital
-  scheduledDate: DateTime
+  dates: DateTime[]
   status: ScheduleStatusEnum
   paidStatus: PaidStatusEnum
   details: {

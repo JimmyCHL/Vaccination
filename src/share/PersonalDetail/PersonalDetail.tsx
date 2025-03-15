@@ -98,8 +98,18 @@ export const PersonalDetail = () => {
       </FormControl>
 
       <FormControl variant="filled" required sx={{ flex: 1 }}>
-        <InputLabel htmlFor="address">Address</InputLabel>
-        <FilledInput id="address" value={user.address} onChange={handleChange} />
+        <InputLabel htmlFor="street">Street</InputLabel>
+        <FilledInput id="street" value={user.street} onChange={handleChange} />
+      </FormControl>
+
+      <FormControl variant="filled" required sx={{ flex: 1 }}>
+        <InputLabel htmlFor="state">State</InputLabel>
+        <FilledInput id="state" value={user.state} onChange={handleChange} />
+      </FormControl>
+
+      <FormControl variant="filled" required sx={{ flex: 1 }}>
+        <InputLabel htmlFor="zip">Zip</InputLabel>
+        <FilledInput id="zip" value={user.zip} onChange={handleChange} />
       </FormControl>
 
       <FormControl variant="filled" required sx={{ flex: 1 }}>
