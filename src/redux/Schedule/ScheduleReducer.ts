@@ -1,15 +1,24 @@
 import * as actionTypes from '../ActionTypes'
+import { User } from '../User/type'
 import { Schedule } from './type'
 
 interface ScheduleState {
   schedules: Schedule[]
   // currentEditSchedule: Schedule
   currentSchedule: Partial<Schedule> | undefined
+  admin: {
+    schedules: Schedule[]
+    patientList: { _id: string; user: User; schedules: Schedule[] }[]
+  }
 }
 
 const initialState: ScheduleState = {
   schedules: [],
   currentSchedule: undefined,
+  admin: {
+    schedules: [],
+    patientList: [],
+  },
 }
 
 export const scheduleReducer = (state = initialState, action: any): ScheduleState => {
@@ -28,6 +37,22 @@ export const scheduleReducer = (state = initialState, action: any): ScheduleStat
       return {
         ...state,
         schedules: [...state.schedules, action.payload],
+      }
+    case actionTypes.SET_ADMIN_PENDING_SCHEDULES:
+      return {
+        ...state,
+        admin: {
+          ...state.admin,
+          schedules: action.payload,
+        },
+      }
+    case actionTypes.SET_ADMIN_PATIENT_LIST:
+      return {
+        ...state,
+        admin: {
+          ...state.admin,
+          patientList: action.payload,
+        },
       }
     default:
       return state

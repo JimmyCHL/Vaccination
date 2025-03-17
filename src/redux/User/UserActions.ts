@@ -2,7 +2,15 @@ import { Dispatch } from 'react'
 import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 import { unmarshalFields } from '../helper'
-import { SET_CURRENT_SCHEDULE } from '../Schedule/ScheduleActions'
+import {
+  fetchAdminSchedules,
+  fetchSchedulesByUserId,
+  getAdminPatientList,
+  SET_ADMIN_PATIENT_LIST,
+  SET_ADMIN_PENDING_SCHEDULES,
+  SET_CURRENT_SCHEDULE,
+  SET_SCHEDULES,
+} from '../Schedule/ScheduleActions'
 import { User } from './type'
 
 export type AuthenticateData = {
@@ -29,6 +37,15 @@ export const SignOutUser = () => {
     //clear current edited schedule while signout
     dispatch(SET_CURRENT_SCHEDULE(undefined))
 
+    //Remove own schedules while signout
+    dispatch(SET_SCHEDULES([]))
+
+    //Remove admin schedules while signout
+    dispatch(SET_ADMIN_PENDING_SCHEDULES([]))
+
+    //Remove admin patient list while signout
+    dispatch(SET_ADMIN_PATIENT_LIST([]))
+
     //Remove token while signout
     localStorage.removeItem('token')
   }
@@ -48,6 +65,17 @@ export const saveUser = (userObj: AuthenticateData, callback: () => void) => {
         }
 
         const { user, token } = collection.data
+
+        /** fetch logic */
+        if (user.role === 'Admin') {
+          //fetch all pending schedules of the admin after successful login
+          dispatch(fetchAdminSchedules())
+          //fetch patient list of the admin after successful login
+          dispatch(getAdminPatientList())
+        } else {
+          //fetch schedules of the user after successful login
+          dispatch(fetchSchedulesByUserId(user._id))
+        }
 
         //set token to local storage
         localStorage.setItem('token', token)

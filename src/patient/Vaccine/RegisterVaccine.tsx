@@ -4,8 +4,9 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Stepper from '@mui/material/Stepper'
 import { useEffect, useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { SET_CURRENT_SCHEDULE } from '../../redux/Schedule/ScheduleActions'
 import { scheduleSelector } from '../../redux/Schedule/ScheduleSelector'
 import { Schedule } from '../../redux/Schedule/type'
 import { Finish } from './components/Finish'
@@ -23,10 +24,11 @@ const defaultSchedule: Partial<Schedule> = {
 export const RegisterVaccine = () => {
   const [activeStep, setActiveStep] = useState(0)
   const currentSchedule = useSelector(scheduleSelector)
+  const dispatch = useDispatch()
 
   // set active step based on current schedule
   useEffect(() => {
-    if (!currentSchedule) return
+    if (!currentSchedule || activeStep === 4) return
 
     const { vaccine, hospital, dates } = currentSchedule
     if (vaccine && hospital && dates?.[0]) {
@@ -58,6 +60,11 @@ export const RegisterVaccine = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
 
+  const paymentCallback = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    dispatch(SET_CURRENT_SCHEDULE({ _id: '' }))
+  }
+
   const canGoNext = useMemo<boolean>(() => {
     if (activeStep === 0) return !!currentSchedule?.vaccine
     if (activeStep === 1) return !!currentSchedule?.hospital
@@ -78,7 +85,7 @@ export const RegisterVaccine = () => {
       </Stepper>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
-          disabled={activeStep === 0}
+          disabled={activeStep === 0 || activeStep === 4}
           onClick={handleBack}
           sx={{
             backgroundColor: 'gray',
@@ -117,8 +124,8 @@ export const RegisterVaccine = () => {
       {activeStep === 0 && <SelectVaccine schedule={currentSchedule ?? defaultSchedule} />}
       {activeStep === 1 && <SelectHospital schedule={currentSchedule ?? defaultSchedule} />}
       {activeStep === 2 && <SelectDateTime schedule={currentSchedule ?? defaultSchedule} />}
-      {activeStep === 3 && <MakePayment schedule={currentSchedule ?? defaultSchedule} />}
-      {activeStep === 4 && <Finish schedule={currentSchedule ?? defaultSchedule} />}
+      {activeStep === 3 && <MakePayment schedule={currentSchedule ?? defaultSchedule} callback={paymentCallback} />}
+      {activeStep === 4 && <Finish />}
     </Box>
   )
 }

@@ -7,10 +7,11 @@ enum PaidStatusEnum {
 }
 
 // schedule enum
-enum ScheduleStatusEnum {
+export enum ScheduleStatusEnum {
   Approved = 'Approved',
   Scheduled = 'Scheduled',
   Cancelled = 'Cancelled',
+  Deny = 'Deny',
 }
 
 const scheduleSchema = new mongoose.Schema(

@@ -35,7 +35,7 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction): void 
     jwt.verify(token, process.env.JWT_SECRET || 'Secret', (err, user) => {
       console.log('Error:', err)
       if (err) return res.status(403).json({ message: 'Invalid token' })
-      console.log('User:', user)
+
       next()
     })
   }
