@@ -1,5 +1,6 @@
-import { Alert, Box, Button, Card, CardActions, CardContent, CardMedia, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, useMediaQuery } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { MovingBanner } from './Components/AutoPlayBanner'
 
 export const Home = () => {
   const navigation = useNavigate()
@@ -7,7 +8,8 @@ export const Home = () => {
 
   return (
     <Box sx={{ padding: '20px' }}>
-      <Alert severity="info">The website is updated recently, you can make an appointment from this website now.</Alert>
+      {/* <Alert severity="info">The website is updated recently, you can make an appointment from this website now.</Alert> */}
+      <MovingBanner />
       <Typography variant="h2" gutterBottom align="center">
         COVID-19 Vaccines
       </Typography>

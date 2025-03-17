@@ -1,5 +1,5 @@
 import express from 'express'
-import { Schedule, ScheduleStatusEnum } from '../Model'
+import { Schedule, ScheduleStatusEnum, Vaccine } from '../Model'
 
 const scheduleRoute = express.Router({ strict: true, caseSensitive: true })
 
@@ -208,6 +208,200 @@ scheduleRoute.get('/api/admin/patientList', (_, res) => {
     })
     .catch((err) => {
       console.error(err)
+    })
+})
+
+scheduleRoute.get('/api/admin/genderCountsPerVaccine', (_, res) => {
+  Schedule.find({
+    status: {
+      $nin: [ScheduleStatusEnum.Cancelled, ScheduleStatusEnum.Deny],
+    },
+  })
+    .populate('user') // Populates the user field
+    .populate('vaccine') // Populates the vaccine field
+    .then(async (schedules) => {
+      const VaccineCategories = await Vaccine.find()
+      const result: Record<string, { male: number; female: number }> = {}
+      VaccineCategories.forEach((vaccine) => {
+        result[vaccine.name] = {
+          male: 0,
+          female: 0,
+        }
+      })
+      schedules.forEach((schedule) => {
+        // @ts-expect-error
+        if (schedule.user.gender) {
+          // @ts-expect-error
+          result[schedule.vaccine.name][schedule.user.gender.toLowerCase()]++
+        }
+      })
+      return res.json(result)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(500).json('error while fetching schedules')
+    })
+})
+
+scheduleRoute.get('/api/admin/ageCountsPerVaccine', (_, res) => {
+  Schedule.find({
+    status: {
+      $nin: [ScheduleStatusEnum.Cancelled, ScheduleStatusEnum.Deny],
+    },
+  })
+    .populate('user') // Populates the user field
+    .populate('vaccine') // Populates the vaccine field
+    .then(async (schedules) => {
+      const VaccineCategories = await Vaccine.find()
+      const result: Record<string, number[]> = {}
+      VaccineCategories.forEach((vaccine) => {
+        result[vaccine.name] = [0, 0, 0, 0, 0, 0, 0]
+      })
+      schedules.forEach((schedule) => {
+        let index = 0
+        // @ts-expect-error
+        const age = schedule.user.age
+        if (age || age === 0) {
+          if (age < 18) {
+            index = 0
+          } else if (age < 25) {
+            index = 1
+          } else if (age < 35) {
+            index = 2
+          } else if (age < 45) {
+            index = 3
+          } else if (age < 55) {
+            index = 4
+          } else if (age < 65) {
+            index = 5
+          } else {
+            index = 6
+          }
+          // @ts-expect-error
+          result[schedule.vaccine.name][index]++
+        }
+      })
+      return res.json(result)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(500).json('error while fetching schedules')
+    })
+})
+
+scheduleRoute.get('/api/admin/vaccineRegisteredPerMonth2025', (_, res) => {
+  Schedule.find({
+    status: {
+      $nin: [ScheduleStatusEnum.Cancelled, ScheduleStatusEnum.Deny],
+    },
+  })
+    .populate('vaccine') // Populates the vaccine field
+    .then((schedules) => {
+      const result: Record<string, number> = {}
+      result.January = 0
+      result.February = 0
+      result.March = 0
+      result.April = 0
+      result.May = 0
+      result.June = 0
+      result.July = 0
+      result.August = 0
+      result.September = 0
+      result.October = 0
+      result.November = 0
+      result.December = 0
+
+      schedules.forEach((schedule) => {
+        schedule.dates.forEach((date) => {
+          // @ts-expect-error
+          const year = new Date(date).getFullYear()
+          // @ts-expect-error
+          const month = new Date(date).getMonth()
+          if (year === 2025) {
+            month === 0 && result.January++
+            month === 1 && result.February++
+            month === 2 && result.March++
+            month === 3 && result.April++
+            month === 4 && result.May++
+            month === 5 && result.June++
+            month === 6 && result.July++
+            month === 7 && result.August++
+            month === 8 && result.September++
+            month === 9 && result.October++
+            month === 10 && result.November++
+            month === 11 && result.December++
+          }
+        })
+      })
+      return res.json(result)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(500).json('error while fetching schedules')
+    })
+})
+
+scheduleRoute.get('/api/admin/percentageVaccinatedForAllVaccines', (_, res) => {
+  Schedule.find({
+    status: {
+      $nin: [ScheduleStatusEnum.Cancelled, ScheduleStatusEnum.Deny],
+    },
+  })
+    .populate('vaccine') // Populates the vaccine field
+    .then(async (schedules) => {
+      const VaccineCategories = await Vaccine.find()
+      const result: Record<string, number> = {}
+      VaccineCategories.forEach((vaccine) => {
+        result[vaccine.name] = 0
+      })
+      let totalVaccinated = 0
+      schedules.forEach((schedule) => {
+        // @ts-expect-error
+        result[schedule.vaccine.name] = result[schedule.vaccine.name] + schedule.vaccine.dosesRequired
+        // @ts-expect-error
+        totalVaccinated = totalVaccinated + schedule.vaccine.dosesRequired
+      })
+
+      Object.keys(result).forEach((key) => {
+        result[key] = (result[key] / totalVaccinated) * 100
+      })
+
+      return res.json(result)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(500).json('error while fetching schedules')
+    })
+})
+
+scheduleRoute.get('/api/admin/preDiseasesCountAcrossAllPatients', (_, res) => {
+  Schedule.find({
+    status: {
+      $nin: [ScheduleStatusEnum.Cancelled, ScheduleStatusEnum.Deny],
+    },
+  })
+    .populate('user') // Populates the user field
+    .then((schedules) => {
+      const result: Record<string, number> = {}
+      schedules.forEach((schedule) => {
+        // @ts-expect-error
+        if (schedule.user.role === 'Admin') {
+          return
+        }
+        // @ts-expect-error
+        schedule.user.medicalCondition.forEach((disease) => {
+          if (result[disease]) {
+            result[disease]++
+          } else {
+            result[disease] = 1
+          }
+        })
+      })
+      return res.json(result)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(500).json('error while fetching schedules')
     })
 })
 

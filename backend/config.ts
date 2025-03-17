@@ -33,7 +33,6 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction): void 
   if (!token) res.status(401).json({ message: 'Access denied' })
   else {
     jwt.verify(token, process.env.JWT_SECRET || 'Secret', (err, user) => {
-      console.log('Error:', err)
       if (err) return res.status(403).json({ message: 'Invalid token' })
 
       next()

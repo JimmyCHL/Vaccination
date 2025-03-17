@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import { Approver } from './admin/Approver/Approver'
 import { AddHospital } from './admin/Hospital/AddHospital'
 import { PatientList } from './admin/PatientList/PatientList'
+import { Reports } from './admin/Report/Reports'
 import { AddVaccine } from './admin/vaccine/AddVaccine'
 import { useAuthenticated } from './hooks/useAuthenticated'
 import { useInitialization } from './hooks/useInitialization'
@@ -37,6 +38,7 @@ function App() {
               {/* Admin */}
               {isAuthenticated && (
                 <>
+                  <Route path="/admin/reports" element={<Reports />} />
                   <Route path="/admin/addVaccine" element={<AddVaccine />} />
                   <Route path="/admin/vaccineList" element={<VaccineList />} />
                   <Route path="/admin/AddHospital" element={<AddHospital />} />
